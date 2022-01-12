@@ -1,0 +1,110 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+if (!dir.exists(file.path("inst", "extdata")))
+  dir.create(file.path("inst", "extdata"), recursive = TRUE)
+```
+
+# soilDBdata
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of soilDBdata is to provide a standard way of building test data sets for the soilDB R package. 
+
+Test data sets for the soilDB package fall into several categories: 
+
+#### 1. NASIS SQLite 'snapshots'
+
+Access to the NASIS transactional database requires eAuth and a NASIS user account. NASIS data are intended for internal use by NRCS staff and authorized cooperators.  NASIS-related functions in {soilDB} provide a standard read-only connection to a local NASIS instance for users that have such access, or alternately can be supplied with the optional `dsn` argument. The `dsn` argument can be a _DBIConnection_ to an MSSQL, SQLite or PostgreSQL database with the NASIS schema (for instance), or a path to a SQLite database file. 
+ 
+A few pedon datasets are used for the trainings provided by the Soil and Plant Science Division. These datasets are regularly updated as SQLite snapshots in this package to support unit testing of NASIS functionality in the soilDB package.
+
+#### ...
+
+## Installation
+
+You can install the released version of {soilDBdata} from GitHub with:
+
+``` r
+remotes::install_github("brownag/soilDBdata")
+```
+
+## Example 1 `soilDB::fetchNASIS('pedons')`
+
+This is an example that shows you how to create a snapshot of the tables in your local database for running `fetchNASIS()` without a local NASIS local database. 
+
+<!-- The following groups of tables are used by `fetchNASIS()` and related Site/Pedon-level queries in {soilDB}: -->
+<!-- ```{r echo=FALSE} -->
+<!-- # NASIS Table -->
+<!-- knitr::kable(data.frame(soilDB::get_NASIS_table_name_by_purpose( -->
+<!--   purpose = c("site", "pedon", "transect", "metadata", "lookup") -->
+<!-- )), col.names = "Table") -->
+<!-- ``` -->
+
+Create a "static" snapshot for `soilDB::fetchNASIS('pedons')` from your local NASIS database.
+
+```{r example1}
+library(soilDBdata)
+
+con <- soilDB::NASIS()
+
+if (inherits(con, 'DBIConnection')) 
+  res <- create_fetchNASIS_pedons(output_path = "inst/extdata/fetchNASIS_pedons.sqlite")
+DBI::dbDisconnect(con)
+
+if (!is.null(res)){
+  f <- try(soilDB::fetchNASIS(dsn = attr(res, 'output_path'), 
+                              SS = FALSE))
+  f2 <- try(soilDB::fetchNASIS(dsn = attr(res, 'output_path'),
+                               SS = FALSE, 
+                               rmHzErrors = FALSE))
+}
+
+if (!is.null(f))
+  show(f)
+
+if (!is.null(f2))
+  show(f2)
+```
+
+## Example 2 `soilDB::fetchNASIS('components')`
+
+Create a "static" snapshot for `soilDB::fetchNASIS('components')` from your local NASIS database.
+
+```{r example2}
+library(soilDBdata)
+
+con <- soilDB::NASIS()
+
+if (inherits(con, 'DBIConnection')) 
+  res <- create_fetchNASIS_components(output_path = "inst/extdata/fetchNASIS_components.sqlite")
+DBI::dbDisconnect(con)
+
+if (!is.null(res)){
+  f <- try(soilDB::fetchNASIS(from = "components",
+                              dsn = attr(res, 'output_path'),
+                              SS = FALSE))
+  
+  f2 <-  try(soilDB::fetchNASIS(from = "components",
+                                dsn = attr(res, 'output_path'),
+                                SS = FALSE,
+                                rmHzErrors = FALSE))
+}
+
+if (!is.null(f))
+  show(f)
+
+if (!is.null(f2))
+  show(f2)
+```

@@ -1,0 +1,19 @@
+Package: soilDBdata
+Type: Package
+Title: Create static data snapshots for soilDB unit tests and comparisons
+Version: 0.0.0.9000
+Authors@R: c(person(given="Andrew", family="Brown", email="andrew.g.brown@usda.gov", role = c("aut", "cre")))
+Maintainer: Andrew G. Brown <andrew.g.brown@usda.gov>
+Description: The goal of soilDBdata is to provide standard methods for building test data sets for the soilDB R package. 
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+Imports: 
+    soilDB 
+Suggests: 
+    DBI, 
+    odbc,
+    RSQLite (>= 2.2.4), 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
