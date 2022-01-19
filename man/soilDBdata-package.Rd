@@ -6,7 +6,7 @@
 \alias{soilDBdata-package}
 \title{soilDBdata: Create static data snapshots for soilDB unit tests and comparisons}
 \description{
-The goal of soilDBdata is to provide standard methods for building test data sets for the soilDB package.
+The goal of soilDBdata is to provide standard methods for building and provisioning test data sets for the soilDB R package. These datasets are stored as SQLite, JSON, CSV in the inst/extdata folder and are buildable by standard methods. Building datasets from scratch may require access to a local instance of a NASIS database with relevant tables populated.
 }
 \author{
 \strong{Maintainer}: Andrew Brown \email{andrew.g.brown@usda.gov}

@@ -4,7 +4,7 @@ Title: Create static data snapshots for soilDB unit tests and comparisons
 Version: 0.0.0.9000
 Authors@R: c(person(given="Andrew", family="Brown", email="andrew.g.brown@usda.gov", role = c("aut", "cre")))
 Maintainer: Andrew G. Brown <andrew.g.brown@usda.gov>
-Description: The goal of soilDBdata is to provide standard methods for building test data sets for the soilDB R package. 
+Description: The goal of soilDBdata is to provide standard methods for building and provisioning test data sets for the soilDB R package. These datasets are stored as SQLite, JSON, CSV in the inst/extdata folder and are buildable by standard methods. Building datasets from scratch may require access to a local instance of a NASIS database with relevant tables populated.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
