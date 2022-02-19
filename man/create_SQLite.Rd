@@ -15,13 +15,13 @@ create_SQLite(
 create_fetchNASIS_pedons(
   output_path = tempfile(fileext = ".sqlite"),
   tables = c("site", "pedon", "transect", "metadata", "lookup"),
-  SS = FALSE
+  SS = NULL
 )
 
 create_fetchNASIS_components(
   output_path = tempfile(fileext = ".sqlite"),
   tables = c("datamapunit", "component", "metadata", "lookup"),
-  SS = FALSE
+  SS = NULL
 )
 }
 \arguments{
@@ -29,7 +29,7 @@ create_fetchNASIS_components(
 
 \item{tables}{Passed to `soilDB::get_NASIS_table_name_by_purpose(purpose = ...)` with and without `SS = TRUE`}
 
-\item{SS}{Use Selected Set (`..._View_1`)tables?}
+\item{SS}{Use Selected Set (`..._View_1`) tables? TRUE = "yes", FALSE = "no", `NULL` for "both" selected set and full local database tables}
 }
 \value{
 SQLite file written to `output_path`

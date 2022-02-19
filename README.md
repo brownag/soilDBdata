@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd. -->
 
 # soilDBdata
 
@@ -63,12 +63,12 @@ con <- soilDB::NASIS()
 if (inherits(con, 'DBIConnection')) 
   res <- create_fetchNASIS_pedons(output_path = "inst/extdata/fetchNASIS_pedons.sqlite")
 #> Loading required namespace: RSQLite
-#> Wrote 76 tables to inst/extdata/fetchNASIS_pedons.sqlite in 7.78 seconds
+#> Wrote 149 tables to inst/extdata/fetchNASIS_pedons.sqlite in 21.5 seconds
 DBI::dbDisconnect(con)
 
 if (!is.null(res)){
   f <- try(soilDB::fetchNASIS(dsn = attr(res, 'output_path'), 
-                              SS = FALSE))
+                              SS = TRUE))
   f2 <- try(soilDB::fetchNASIS(dsn = attr(res, 'output_path'),
                                SS = FALSE, 
                                rmHzErrors = FALSE))
@@ -171,20 +171,19 @@ con <- soilDB::NASIS()
 
 if (inherits(con, 'DBIConnection')) 
   res <- create_fetchNASIS_components(output_path = "inst/extdata/fetchNASIS_components.sqlite")
-#> Wrote 48 tables to inst/extdata/fetchNASIS_components.sqlite in 6.26 seconds
+#> Wrote 89 tables to inst/extdata/fetchNASIS_components.sqlite in 16.1 seconds
 DBI::dbDisconnect(con)
 
 if (!is.null(res)){
   f <- try(soilDB::fetchNASIS(from = "components",
                               dsn = attr(res, 'output_path'),
-                              SS = FALSE))
+                              SS = TRUE))
   
   f2 <-  try(soilDB::fetchNASIS(from = "components",
                                 dsn = attr(res, 'output_path'),
                                 SS = FALSE,
                                 rmHzErrors = FALSE))
 }
-#> NOTE: some records are missing rock fragment volume
 #> NOTE: all records are missing artifact volume
 #> -> QC: multiple othervegclasses / component.
 #>  Use `get('multiple.otherveg.per.coiid', envir=soilDB.env)` for component record IDs (coiid)
@@ -199,11 +198,11 @@ if (!is.null(res)){
 
 if (!is.null(f))
   show(f)
-#> SoilProfileCollection with 392 profiles and 1824 horizons
+#> SoilProfileCollection with 191 profiles and 894 horizons
 #> profile ID: coiid  |  horizon ID: chiid 
 #> Depth range: 150 - 200 cm
 #> 
-#> ----- Horizons (6 / 1824 rows  |  10 / 112 columns) -----
+#> ----- Horizons (6 / 894 rows  |  10 / 112 columns) -----
 #>  hzname   coiid   chiid hzdept_r hzdepb_r texture fragvoltot_l fragvoltot_r
 #>      Oi 2314302 9465593        0        2     SPM            0            0
 #>       E 2314302 9708039        2       10  PCNV-L           35           45
@@ -220,7 +219,7 @@ if (!is.null(f))
 #>             0          NA
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 392 rows  |  10 / 87 columns) -----
+#> ----- Sites (6 / 191 rows  |  10 / 87 columns) -----
 #>    coiid  dmudesc   compname comppct_r compkind majcompflag localphase
 #>  2314302 6326319E Mariaspass        20   family           1      stony
 #>  2314304 6326319E   Jefflake        25   family           1       <NA>

@@ -3,8 +3,8 @@
 #' @rdname  create_SQLite
 #' @export
 create_fetchNASIS_pedons <- function(output_path = tempfile(fileext = ".sqlite"),
-                                     tables = c("site", "pedon", "transect", "metadata", "lookup"),
-                                     SS = FALSE) {
+                                     tables = c("area", "site", "pedon", "transect", "metadata", "lookup"),
+                                     SS = NULL) {
  create_SQLite(output_path = output_path, tables = tables, SS = SS)
 }
 
@@ -13,6 +13,6 @@ create_fetchNASIS_pedons <- function(output_path = tempfile(fileext = ".sqlite")
 #' @export
 create_fetchNASIS_components <- function(output_path = tempfile(fileext = ".sqlite"),
                                          tables = c("datamapunit", "component", "metadata", "lookup"),
-                                         SS = FALSE) {
+                                         SS = NULL) {
   create_SQLite(output_path = output_path, tables = tables, SS = SS)
 }

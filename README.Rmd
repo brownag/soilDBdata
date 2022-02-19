@@ -65,7 +65,7 @@ DBI::dbDisconnect(con)
 
 if (!is.null(res)){
   f <- try(soilDB::fetchNASIS(dsn = attr(res, 'output_path'), 
-                              SS = FALSE))
+                              SS = TRUE))
   f2 <- try(soilDB::fetchNASIS(dsn = attr(res, 'output_path'),
                                SS = FALSE, 
                                rmHzErrors = FALSE))
@@ -94,7 +94,7 @@ DBI::dbDisconnect(con)
 if (!is.null(res)){
   f <- try(soilDB::fetchNASIS(from = "components",
                               dsn = attr(res, 'output_path'),
-                              SS = FALSE))
+                              SS = TRUE))
   
   f2 <-  try(soilDB::fetchNASIS(from = "components",
                                 dsn = attr(res, 'output_path'),

@@ -2,7 +2,7 @@
 #'
 #' @param output_path Output SQLite file
 #' @param tables Passed to `soilDB::get_NASIS_table_name_by_purpose(purpose = ...)` with and without `SS = TRUE`
-#' @param SS Use Selected Set (`..._View_1`)tables?
+#' @param SS Use Selected Set (`..._View_1`) tables? TRUE = "yes", FALSE = "no", `NULL` for "both" selected set and full local database tables
 #'
 #' @return SQLite file written to `output_path`
 #' @importFrom soilDB createStaticNASIS get_NASIS_table_name_by_purpose
@@ -11,12 +11,21 @@ create_SQLite <- function(output_path = tempfile(fileext = ".sqlite"),
                           tables = NULL,
                           SS = FALSE) {
 
+  if (is.null(SS)) {
+    sstables <- "default"
+    SS <- TRUE
+  } else {
+    sstables <- as.character(SS)
+  }
+
   if (is.null(tables)) {
     tbls <- NULL
   } else {
-    tbls <- switch(as.character(SS),
+    tbls <- switch(sstables,
                  `TRUE` = soilDB::get_NASIS_table_name_by_purpose(purpose = tables, SS = TRUE),
-                 `FALSE`  = soilDB::get_NASIS_table_name_by_purpose(purpose = tables))
+                 `FALSE`  = soilDB::get_NASIS_table_name_by_purpose(purpose = tables),
+                 unique(c(soilDB::get_NASIS_table_name_by_purpose(purpose = tables, SS = TRUE),
+                   soilDB::get_NASIS_table_name_by_purpose(purpose = tables))))
   }
 
   t0 <- Sys.time()
