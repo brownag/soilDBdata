@@ -42,7 +42,9 @@ remotes::install_github("brownag/soilDBdata")
 
 ## Example 1 `soilDB::fetchNASIS('pedons')`
 
-This is an example that shows you how to create a snapshot of the tables in your local database for running `fetchNASIS()` without a local NASIS local database. 
+This is an example that shows you how to create a snapshot of the tables in your local database for running `fetchNASIS()` without a local NASIS database. 
+
+The sample data for testing the `from="pedons"` functionality are queried into the local database, accepted, and queried into and selected set using MLRA04_Bozeman query `_PedonPC_Plus_DataDump_select` targeting Site and Pedon objects. User Site ID matches `"2015MT663%"`, NASIS site name matches `"%"` and NASIS group name matches `"4-MIS Pedons"`. A total of `134` Site and Pedon objects should be found.
 
 <!-- The following groups of tables are used by `fetchNASIS()` and related Site/Pedon-level queries in {soilDB}: -->
 <!-- ```{r echo=FALSE} -->
@@ -63,12 +65,13 @@ if (inherits(con, 'DBIConnection'))
   res <- create_fetchNASIS_pedons(output_path = "inst/extdata/fetchNASIS_pedons.sqlite")
 DBI::dbDisconnect(con)
 
-if (!is.null(res)){
+if (!is.null(res)) {
   f <- try(soilDB::fetchNASIS(dsn = attr(res, 'output_path'), 
-                              SS = TRUE))
+                              SS = TRUE,
+                              rmHzErrors = TRUE))
   f2 <- try(soilDB::fetchNASIS(dsn = attr(res, 'output_path'),
                                SS = FALSE, 
-                               rmHzErrors = FALSE))
+                               fill = TRUE))
 }
 
 if (!is.null(f))
@@ -82,6 +85,8 @@ if (!is.null(f2))
 
 Create a "static" snapshot for `soilDB::fetchNASIS('components')` from your local NASIS database.
 
+The sample data for testing the `from="components"` functionality are queried into the local database, accepted, and queried into selected set using MLRA02_Davis query `Whole multiple legends by area sym != addit. and DMU = yes +` targeting Area, Legend, Mapunit and Data Mapunit objects. Area Symbol matches `"MT663"`. A total of `1` Legend, `82` Mapunit and `86` Data Mapunit objects should be brought into local database. A total of `1` Area, `1` Legend, `63` Mapunit and `63` Data Mapunit objects should be brought into selected set.
+
 ```{r example2}
 library(soilDBdata)
 
@@ -91,15 +96,16 @@ if (inherits(con, 'DBIConnection'))
   res <- create_fetchNASIS_components(output_path = "inst/extdata/fetchNASIS_components.sqlite")
 DBI::dbDisconnect(con)
 
-if (!is.null(res)){
+if (!is.null(res)) {
   f <- try(soilDB::fetchNASIS(from = "components",
                               dsn = attr(res, 'output_path'),
-                              SS = TRUE))
+                              SS = TRUE,
+                              rmHzErrors = TRUE))
   
   f2 <-  try(soilDB::fetchNASIS(from = "components",
                                 dsn = attr(res, 'output_path'),
-                                SS = FALSE,
-                                rmHzErrors = FALSE))
+                                SS = FALSE, 
+                                fill = TRUE))
 }
 
 if (!is.null(f))
