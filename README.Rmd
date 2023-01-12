@@ -15,20 +15,20 @@ if (!dir.exists(file.path("inst", "extdata")))
   dir.create(file.path("inst", "extdata"), recursive = TRUE)
 ```
 
-# soilDBdata
+# {soilDBdata}
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of soilDBdata is to provide a standard way of building test data sets for the soilDB R package. 
+The goal of {soilDBdata} is to provide a standard way of building test data sets for the soilDB R package. 
 
-Test data sets for the soilDB package fall into several categories: 
+Test data sets for the {soilDB} package fall into several categories: 
 
 #### 1. NASIS SQLite 'snapshots'
 
 Access to the NASIS transactional database requires eAuth and a NASIS user account. NASIS data are intended for internal use by NRCS staff and authorized cooperators.  NASIS-related functions in {soilDB} provide a standard read-only connection to a local NASIS instance for users that have such access, or alternately can be supplied with the optional `dsn` argument. The `dsn` argument can be a _DBIConnection_ to an MSSQL, SQLite or PostgreSQL database with the NASIS schema (for instance), or a path to a SQLite database file. 
  
-A few pedon datasets are used for the trainings provided by the Soil and Plant Science Division. These datasets are regularly updated as SQLite snapshots in this package to support unit testing of NASIS functionality in the soilDB package.
+A few pedon datasets are used for the trainings provided by the Soil and Plant Science Division. These datasets are regularly updated as SQLite snapshots in this package to support unit testing of NASIS functionality in the {soilDB} package.
 
 #### ...
 

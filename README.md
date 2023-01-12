@@ -1,15 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. -->
 
-# soilDBdata
+# {soilDBdata}
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of soilDBdata is to provide a standard way of building test
+The goal of {soilDBdata} is to provide a standard way of building test
 data sets for the soilDB R package.
 
-Test data sets for the soilDB package fall into several categories:
+Test data sets for the {soilDB} package fall into several categories:
 
 #### 1. NASIS SQLite ‘snapshots’
 
@@ -25,7 +25,7 @@ path to a SQLite database file.
 A few pedon datasets are used for the trainings provided by the Soil and
 Plant Science Division. These datasets are regularly updated as SQLite
 snapshots in this package to support unit testing of NASIS functionality
-in the soilDB package.
+in the {soilDB} package.
 
 #### …
 
@@ -70,7 +70,7 @@ con <- soilDB::NASIS()
 if (inherits(con, 'DBIConnection')) 
   res <- create_fetchNASIS_pedons(output_path = "inst/extdata/fetchNASIS_pedons.sqlite")
 #> Loading required namespace: RSQLite
-#> Wrote 154 tables to inst/extdata/fetchNASIS_pedons.sqlite in 4.51 seconds
+#> Wrote 157 tables to inst/extdata/fetchNASIS_pedons.sqlite in 4.85 seconds
 DBI::dbDisconnect(con)
 
 if (!is.null(res)) {
@@ -105,30 +105,37 @@ if (!is.null(f))
 #> Depth range: 30 - 150 cm
 #> 
 #> ----- Horizons (6 / 561 rows  |  10 / 73 columns) -----
-#>  hzname   peiid   phiid hzdept hzdepb genhz bounddistinct boundtopo clay silt
-#>      Oi 1092608 4718124      0      5  <NA>          <NA>      <NA>   NA   NA
-#>       E 1092608 4718125      5     13  <NA>         clear      wavy   16   41
-#>      Bw 1092608 4718126     13     31  <NA>         clear      wavy   17   42
-#>     2Bw 1092608 4718127     31     64  <NA>         clear      wavy   15   30
-#>      2C 1092608 4718128     64    110  <NA>          <NA>      <NA>   10   19
-#>      Oi 1092609 4718129      0      2  <NA>          <NA>      <NA>   NA   NA
+#>    peiid   phiid hzdept hzdepb hzname texture genhz bounddistinct boundtopo
+#>  1092608 4718124      0      5     Oi     SPM  <NA>          <NA>      <NA>
+#>  1092608 4718125      5     13      E   GRV-L  <NA>         clear      wavy
+#>  1092608 4718126     13     31     Bw   GRV-L  <NA>         clear      wavy
+#>  1092608 4718127     31     64    2Bw  GRX-SL  <NA>         clear      wavy
+#>  1092608 4718128     64    110     2C  CBX-SL  <NA>          <NA>      <NA>
+#>  1092609 4718129      0      2     Oi     SPM  <NA>          <NA>      <NA>
+#>  clay
+#>    NA
+#>    16
+#>    17
+#>    15
+#>    10
+#>    NA
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 115 rows  |  10 / 123 columns) -----
-#>  siteiid   peiid      pedon_id       site_id   obs_date utmzone utmeasting
-#>  1100702 1092608 2015MT6630502 2015MT6630502 2015-06-19      12   269662.2
-#>  1100703 1092609 2015MT6630503 2015MT6630503 2015-06-19      12   271991.7
-#>  1100704 1092610 2015MT6630505 2015MT6630505 2015-08-09      12   332411.8
-#>  1100705 1092611 2015MT6630506 2015MT6630506 2015-07-17      12   291297.7
-#>  1100706 1092612 2015MT6630507 2015MT6630507 2015-07-18      12   294229.4
-#>  1100707 1092613 2015MT6630508 2015MT6630508 2015-07-18      12   294287.4
-#>  utmnorthing         x        y
-#>      5387224 -114.1242 48.59568
-#>      5386371 -114.0921 48.58888
-#>      5363082 -113.2642 48.39861
-#>      5417307 -113.8463 48.87357
-#>      5419511 -113.8075 48.89435
-#>      5419237 -113.8066 48.89191
+#> ----- Sites (6 / 115 rows  |  10 / 125 columns) -----
+#>  siteiid   peiid ecositeid ecositenm ecositecorrdate es_classifier
+#>  1100702 1092608      <NA>      <NA>            <NA>          <NA>
+#>  1100703 1092609      <NA>      <NA>            <NA>          <NA>
+#>  1100704 1092610      <NA>      <NA>            <NA>          <NA>
+#>  1100705 1092611      <NA>      <NA>            <NA>          <NA>
+#>  1100706 1092612      <NA>      <NA>            <NA>          <NA>
+#>  1100707 1092613      <NA>      <NA>            <NA>          <NA>
+#>  siteecositehistory.classifier es_selection_method      pedon_id siteobsiid
+#>                           <NA>                <NA> 2015MT6630502    1076863
+#>                           <NA>                <NA> 2015MT6630503    1076864
+#>                           <NA>                <NA> 2015MT6630505    1076865
+#>                           <NA>                <NA> 2015MT6630506    1076866
+#>                           <NA>                <NA> 2015MT6630507    1076867
+#>                           <NA>                <NA> 2015MT6630508    1076868
 #> [... more sites ...]
 #> 
 #> Spatial Data:
@@ -141,30 +148,37 @@ if (!is.null(f2))
 #> Depth range: 30 - 150 cm
 #> 
 #> ----- Horizons (6 / 580 rows  |  10 / 73 columns) -----
-#>  hzname   peiid hzID hzdept hzdepb   phiid genhz bounddistinct boundtopo clay
-#>    <NA> 1092607    1     NA     NA    <NA>  <NA>          <NA>      <NA>   NA
-#>      Oi 1092608    2      0      5 4718124  <NA>          <NA>      <NA>   NA
-#>       E 1092608    3      5     13 4718125  <NA>         clear      wavy   16
-#>      Bw 1092608    4     13     31 4718126  <NA>         clear      wavy   17
-#>     2Bw 1092608    5     31     64 4718127  <NA>         clear      wavy   15
-#>      2C 1092608    6     64    110 4718128  <NA>          <NA>      <NA>   10
+#>    peiid hzID hzdept hzdepb hzname texture   phiid genhz bounddistinct
+#>  1092607    1     NA     NA   <NA>    <NA>    <NA>  <NA>          <NA>
+#>  1092608    2      0      5     Oi     SPM 4718124  <NA>          <NA>
+#>  1092608    3      5     13      E   GRV-L 4718125  <NA>         clear
+#>  1092608    4     13     31     Bw   GRV-L 4718126  <NA>         clear
+#>  1092608    5     31     64    2Bw  GRX-SL 4718127  <NA>         clear
+#>  1092608    6     64    110     2C  CBX-SL 4718128  <NA>          <NA>
+#>  boundtopo
+#>       <NA>
+#>       <NA>
+#>       wavy
+#>       wavy
+#>       wavy
+#>       <NA>
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 134 rows  |  10 / 123 columns) -----
-#>  siteiid   peiid      pedon_id       site_id   obs_date utmzone utmeasting
-#>  1100701 1092607 2015MT6630501 2015MT6630501 2015-06-06      12   265103.6
-#>  1100702 1092608 2015MT6630502 2015MT6630502 2015-06-19      12   269662.2
-#>  1100703 1092609 2015MT6630503 2015MT6630503 2015-06-19      12   271991.7
-#>  1100704 1092610 2015MT6630505 2015MT6630505 2015-08-09      12   332411.8
-#>  1100705 1092611 2015MT6630506 2015MT6630506 2015-07-17      12   291297.7
-#>  1100706 1092612 2015MT6630507 2015MT6630507 2015-07-18      12   294229.4
-#>  utmnorthing         x        y
-#>      5414112 -114.2012 48.83550
-#>      5387224 -114.1242 48.59568
-#>      5386371 -114.0921 48.58888
-#>      5363082 -113.2642 48.39861
-#>      5417307 -113.8463 48.87357
-#>      5419511 -113.8075 48.89435
+#> ----- Sites (6 / 134 rows  |  10 / 125 columns) -----
+#>  siteiid   peiid ecositeid ecositenm ecositecorrdate es_classifier
+#>  1100701 1092607      <NA>      <NA>            <NA>          <NA>
+#>  1100702 1092608      <NA>      <NA>            <NA>          <NA>
+#>  1100703 1092609      <NA>      <NA>            <NA>          <NA>
+#>  1100704 1092610      <NA>      <NA>            <NA>          <NA>
+#>  1100705 1092611      <NA>      <NA>            <NA>          <NA>
+#>  1100706 1092612      <NA>      <NA>            <NA>          <NA>
+#>  siteecositehistory.classifier es_selection_method      pedon_id siteobsiid
+#>                           <NA>                <NA> 2015MT6630501    1076862
+#>                           <NA>                <NA> 2015MT6630502    1076863
+#>                           <NA>                <NA> 2015MT6630503    1076864
+#>                           <NA>                <NA> 2015MT6630505    1076865
+#>                           <NA>                <NA> 2015MT6630506    1076866
+#>                           <NA>                <NA> 2015MT6630507    1076867
 #> [... more sites ...]
 #> 
 #> Spatial Data:
@@ -193,7 +207,7 @@ con <- soilDB::NASIS()
 
 if (inherits(con, 'DBIConnection')) 
   res <- create_fetchNASIS_components(output_path = "inst/extdata/fetchNASIS_components.sqlite")
-#> Wrote 114 tables to inst/extdata/fetchNASIS_components.sqlite in 4.35 seconds
+#> Wrote 114 tables to inst/extdata/fetchNASIS_components.sqlite in 4.46 seconds
 DBI::dbDisconnect(con)
 
 if (!is.null(res)) {
@@ -209,13 +223,13 @@ if (!is.null(res)) {
 }
 #> NOTE: all records are missing artifact volume
 #> -> QC: multiple othervegclasses / component.
-#>  Use `get('multiple.otherveg.per.coiid', envir=soilDB.env)` for component record IDs (coiid)
+#>  Use `get('multiple.otherveg.per.coiid', envir=get_soilDB_env())` for component record IDs (coiid)
 #> converting profile IDs from integer to character
 #> converting horizon IDs in column `chiid` to character
 #> NOTE: some records are missing rock fragment volume
 #> NOTE: all records are missing artifact volume
 #> -> QC: multiple othervegclasses / component.
-#>  Use `get('multiple.otherveg.per.coiid', envir=soilDB.env)` for component record IDs (coiid)
+#>  Use `get('multiple.otherveg.per.coiid', envir=get_soilDB_env())` for component record IDs (coiid)
 #> converting profile IDs from integer to character
 #> Warning: Horizon top depths contain NA! Check depth logic with
 #> aqp::checkHzDepthLogic()
@@ -231,13 +245,13 @@ if (!is.null(f))
 #> Depth range: 150 - 200 cm
 #> 
 #> ----- Horizons (6 / 894 rows  |  10 / 112 columns) -----
-#>  hzname   coiid   chiid hzdept_r hzdepb_r texture fragvoltot_l fragvoltot_r
-#>      Oi 2314302 9465593        0        2     SPM            0            0
-#>       E 2314302 9708039        2       10  PCNV-L           35           45
-#>       C 2314302 9465589       10       38  PCNX-L           60           70
-#>      Cr 2314302 9465590       38       48      BR           NA           NA
-#>       R 2314302 9465592       48      150      BR           NA           NA
-#>      Oe 2314304 9465398        0        4     MPT            0            0
+#>    coiid   chiid hzdept_r hzdepb_r hzname texture fragvoltot_l fragvoltot_r
+#>  2314302 9465593        0        2     Oi     SPM            0            0
+#>  2314302 9708039        2       10      E  PCNV-L           35           45
+#>  2314302 9465589       10       38      C  PCNX-L           60           70
+#>  2314302 9465590       38       48     Cr      BR           NA           NA
+#>  2314302 9465592       48      150      R      BR           NA           NA
+#>  2314304 9465398        0        4     Oe     MPT            0            0
 #>  fragvoltot_h sandtotal_l
 #>             0          NA
 #>            55          34
@@ -247,21 +261,21 @@ if (!is.null(f))
 #>             0          NA
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 191 rows  |  10 / 109 columns) -----
-#>    coiid  liid dmuiid  dmudesc   compname comppct_r compkind majcompflag
-#>  2314302 20908 715195 6326319E Mariaspass        20   family           1
-#>  2314304 20908 715195 6326319E   Jefflake        25   family           1
-#>  2314305 20908 715195 6326319E   Potlatch        10   family           0
-#>  2314306 20908 715195 6326319E     Cowood         8   family           0
-#>  2314308 20908 715194 6326319G Mariaspass        25   family           1
-#>  2314310 20908 715194 6326319G   Jefflake        15   family           1
-#>  localphase drainagecl
-#>       stony       well
-#>        <NA>     poorly
-#>        <NA>     poorly
-#>  very stony       well
-#>       stony       well
-#>        <NA>     poorly
+#> ----- Sites (6 / 191 rows  |  10 / 87 columns) -----
+#>    coiid  dmudesc   compname comppct_r compkind majcompflag localphase
+#>  2314302 6326319E Mariaspass        20   family           1      stony
+#>  2314304 6326319E   Jefflake        25   family           1       <NA>
+#>  2314305 6326319E   Potlatch        10   family           0       <NA>
+#>  2314306 6326319E     Cowood         8   family           0 very stony
+#>  2314308 6326319G Mariaspass        25   family           1      stony
+#>  2314310 6326319G   Jefflake        15   family           1       <NA>
+#>  drainagecl hydricrating elev_l
+#>        well           no   1625
+#>      poorly           no   1625
+#>      poorly          yes   1625
+#>        well           no   1625
+#>        well           no   1775
+#>      poorly           no   1775
 #> [... more sites ...]
 #> 
 #> Spatial Data:
@@ -274,13 +288,13 @@ if (!is.null(f2))
 #> Depth range: 150 - 200 cm
 #> 
 #> ----- Horizons (6 / 1978 rows  |  10 / 112 columns) -----
-#>  hzname   coiid hzID hzdept_r hzdepb_r   chiid texture fragvoltot_l
-#>    <NA> 1889394    1       NA       NA      NA    <NA>           NA
-#>    <NA>  199488    2       NA       NA      NA    <NA>           NA
-#>      Oi 2314302    3        0        2 9465593     SPM            0
-#>       E 2314302    4        2       10 9708039  PCNV-L           35
-#>       C 2314302    5       10       38 9465589  PCNX-L           60
-#>      Cr 2314302    6       38       48 9465590      BR           NA
+#>    coiid hzID hzdept_r hzdepb_r hzname texture   chiid fragvoltot_l
+#>  1889394    1       NA       NA   <NA>    <NA>      NA           NA
+#>   199488    2       NA       NA   <NA>    <NA>      NA           NA
+#>  2314302    3        0        2     Oi     SPM 9465593            0
+#>  2314302    4        2       10      E  PCNV-L 9708039           35
+#>  2314302    5       10       38      C  PCNX-L 9465589           60
+#>  2314302    6       38       48     Cr      BR 9465590           NA
 #>  fragvoltot_r fragvoltot_h
 #>            NA           NA
 #>            NA           NA
@@ -290,21 +304,21 @@ if (!is.null(f2))
 #>            NA           NA
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 546 rows  |  10 / 109 columns) -----
-#>    coiid  liid dmuiid             dmudesc   compname comppct_r
-#>  1889394 20908 566914 NOTCOM National DMU     NOTCOM       100
-#>   199488    NA 105969                638W      Water       100
-#>  2314302 20908 715195            6326319E Mariaspass        20
-#>  2314304 20908 715195            6326319E   Jefflake        25
-#>  2314305 20908 715195            6326319E   Potlatch        10
-#>  2314306 20908 715195            6326319E     Cowood         8
-#>            compkind majcompflag localphase drainagecl
-#>                <NA>           1       <NA>       <NA>
-#>  miscellaneous area           1       <NA>       <NA>
-#>              family           1      stony       well
-#>              family           1       <NA>     poorly
-#>              family           0       <NA>     poorly
-#>              family           0 very stony       well
+#> ----- Sites (6 / 546 rows  |  10 / 87 columns) -----
+#>    coiid             dmudesc   compname comppct_r           compkind
+#>  1889394 NOTCOM National DMU     NOTCOM       100               <NA>
+#>   199488                638W      Water       100 miscellaneous area
+#>  2314302            6326319E Mariaspass        20             family
+#>  2314304            6326319E   Jefflake        25             family
+#>  2314305            6326319E   Potlatch        10             family
+#>  2314306            6326319E     Cowood         8             family
+#>  majcompflag localphase drainagecl hydricrating elev_l
+#>            1       <NA>       <NA>         <NA>     NA
+#>            1       <NA>       <NA>     unranked     NA
+#>            1      stony       well           no   1625
+#>            1       <NA>     poorly           no   1625
+#>            0       <NA>     poorly          yes   1625
+#>            0 very stony       well           no   1625
 #> [... more sites ...]
 #> 
 #> Spatial Data:
