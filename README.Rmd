@@ -44,7 +44,7 @@ remotes::install_github("brownag/soilDBdata")
 
 This is an example that shows you how to create a snapshot of the tables in your local database for running `fetchNASIS()` without a local NASIS database. 
 
-The sample data for testing the `from="pedons"` functionality are queried into the local database, accepted, and queried into and selected set using MLRA04_Bozeman query `_PedonPC_Plus_DataDump_select` targeting Site and Pedon objects. User Site ID matches `"2015MT663%"`, NASIS site name matches `"%"` and NASIS group name matches `"4-MIS Pedons"`. A total of `134` Site and Pedon objects should be found.
+The sample data for testing the `from="pedons"` functionality are queried into the local database, accepted, and queried into and selected set using SSRO_Northwest query `PedonPC_Plus_DataDump_select` targeting Site and Pedon objects. User Site ID matches `"2015MT663%"`, NASIS site name matches `"%"` and NASIS group name matches `"NW-MIS Point Data"`. A total of `134` Site and Pedon objects should be found.
 
 <!-- The following groups of tables are used by `fetchNASIS()` and related Site/Pedon-level queries in {soilDB}: -->
 <!-- ```{r echo=FALSE} -->
@@ -85,7 +85,7 @@ if (!is.null(f2))
 
 Create a "static" snapshot for `soilDB::fetchNASIS('components')` from your local NASIS database.
 
-The sample data for testing the `from="components"` functionality are queried into the local database, accepted, and queried into selected set using MLRA02_Davis query `Whole multiple legends by area sym != addit. and DMU = yes +` targeting Area, Legend, Mapunit and Data Mapunit objects. Area Symbol matches `"MT663"`. A total of `1` Legend, `82` Mapunit and `86` Data Mapunit objects should be brought into local database. A total of `1` Area, `1` Legend, `63` Mapunit and `63` Data Mapunit objects should be brought into selected set.
+The sample data for testing the `from="components"` functionality are queried into the local database, accepted, and queried into selected set using SSRO_Southwest query `Whole multiple legends by area sym != addit. and DMU = yes +` targeting Area, Legend, Mapunit and Data Mapunit objects. Area Symbol matches `"MT663"`. A total of `1` Legend, `82` Mapunit and `86` Data Mapunit objects should be brought into local database. A total of `1` Area, `1` Legend, `63` Mapunit and `63` Data Mapunit objects should be brought into selected set.
 
 ```{r example2}
 library(soilDBdata)

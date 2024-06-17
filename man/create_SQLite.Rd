@@ -14,13 +14,14 @@ create_SQLite(
 
 create_fetchNASIS_pedons(
   output_path = tempfile(fileext = ".sqlite"),
-  tables = c("site", "pedon", "transect", "metadata", "lookup"),
+  tables = c("area", "site", "pedon", "transect", "metadata", "lookup", "nasis"),
   SS = NULL
 )
 
 create_fetchNASIS_components(
   output_path = tempfile(fileext = ".sqlite"),
-  tables = c("datamapunit", "component", "metadata", "lookup"),
+  tables = c("area", "legend", "mapunit", "datamapunit", "component", "metadata",
+    "lookup", "nasis"),
   SS = NULL
 )
 }

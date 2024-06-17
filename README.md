@@ -45,9 +45,9 @@ database.
 
 The sample data for testing the `from="pedons"` functionality are
 queried into the local database, accepted, and queried into and selected
-set using MLRA04_Bozeman query `_PedonPC_Plus_DataDump_select` targeting
+set using SSRO_Northwest query `PedonPC_Plus_DataDump_select` targeting
 Site and Pedon objects. User Site ID matches `"2015MT663%"`, NASIS site
-name matches `"%"` and NASIS group name matches `"4-MIS Pedons"`. A
+name matches `"%"` and NASIS group name matches `"NW-MIS Point Data"`. A
 total of `134` Site and Pedon objects should be found.
 
 <!-- The following groups of tables are used by `fetchNASIS()` and related Site/Pedon-level queries in {soilDB}: -->
@@ -66,11 +66,24 @@ library(soilDBdata)
 
 con <- soilDB::NASIS()
 #> Loading required namespace: odbc
+```
+
+``` r
 
 if (inherits(con, 'DBIConnection')) 
   res <- create_fetchNASIS_pedons(output_path = "inst/extdata/fetchNASIS_pedons.sqlite")
 #> Loading required namespace: RSQLite
-#> Wrote 157 tables to inst/extdata/fetchNASIS_pedons.sqlite in 4.85 seconds
+#> Warning: `odbcConnectionColumns()` was deprecated in odbc 1.4.2.
+#> ℹ Please use `dbListFields()` instead.
+#> ℹ The deprecated feature was likely used in the soilDB package.
+#>   Please report the issue at <https://github.com/ncss-tech/soilDB/issues>.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
+#> Wrote 157 tables to inst/extdata/fetchNASIS_pedons.sqlite in 7.89 seconds
+```
+
+``` r
 DBI::dbDisconnect(con)
 
 if (!is.null(res)) {
@@ -97,6 +110,9 @@ if (!is.null(res)) {
 #> aqp::checkHzDepthLogic()
 #> Warning: cannot set `phiid` as unique pedon horizon key - `NA` introduced by
 #> fill=TRUE
+```
+
+``` r
 
 if (!is.null(f))
   show(f)
@@ -121,7 +137,7 @@ if (!is.null(f))
 #>    NA
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 115 rows  |  10 / 125 columns) -----
+#> ----- Sites (6 / 115 rows  |  10 / 141 columns) -----
 #>  siteiid   peiid ecositeid ecositenm ecositecorrdate es_classifier
 #>  1100702 1092608      <NA>      <NA>            <NA>          <NA>
 #>  1100703 1092609      <NA>      <NA>            <NA>          <NA>
@@ -140,6 +156,9 @@ if (!is.null(f))
 #> 
 #> Spatial Data:
 #> [EMPTY]
+```
+
+``` r
 
 if (!is.null(f2))
   show(f2)
@@ -164,7 +183,7 @@ if (!is.null(f2))
 #>       <NA>
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 134 rows  |  10 / 125 columns) -----
+#> ----- Sites (6 / 134 rows  |  10 / 141 columns) -----
 #>  siteiid   peiid ecositeid ecositenm ecositecorrdate es_classifier
 #>  1100701 1092607      <NA>      <NA>            <NA>          <NA>
 #>  1100702 1092608      <NA>      <NA>            <NA>          <NA>
@@ -192,7 +211,7 @@ your local NASIS database.
 
 The sample data for testing the `from="components"` functionality are
 queried into the local database, accepted, and queried into selected set
-using MLRA02_Davis query
+using SSRO_Southwest query
 `Whole multiple legends by area sym != addit. and DMU = yes +` targeting
 Area, Legend, Mapunit and Data Mapunit objects. Area Symbol matches
 `"MT663"`. A total of `1` Legend, `82` Mapunit and `86` Data Mapunit
@@ -207,7 +226,10 @@ con <- soilDB::NASIS()
 
 if (inherits(con, 'DBIConnection')) 
   res <- create_fetchNASIS_components(output_path = "inst/extdata/fetchNASIS_components.sqlite")
-#> Wrote 114 tables to inst/extdata/fetchNASIS_components.sqlite in 4.46 seconds
+#> Wrote 114 tables to inst/extdata/fetchNASIS_components.sqlite in 5.01 seconds
+```
+
+``` r
 DBI::dbDisconnect(con)
 
 if (!is.null(res)) {
@@ -235,8 +257,11 @@ if (!is.null(res)) {
 #> aqp::checkHzDepthLogic()
 #> Warning: Horizon bottom depths contain NA! Check depth logic with
 #> aqp::checkHzDepthLogic()
-#> Warning: cannot set `chiid` as unique component horizon key - `NA` introduced by
-#> fill=TRUE
+#> Warning: cannot set `chiid` as unique component horizon key - `NA` introduced
+#> by fill=TRUE
+```
+
+``` r
 
 if (!is.null(f))
   show(f)
@@ -261,7 +286,7 @@ if (!is.null(f))
 #>             0          NA
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 191 rows  |  10 / 87 columns) -----
+#> ----- Sites (6 / 191 rows  |  10 / 92 columns) -----
 #>    coiid  dmudesc   compname comppct_r compkind majcompflag localphase
 #>  2314302 6326319E Mariaspass        20   family           1      stony
 #>  2314304 6326319E   Jefflake        25   family           1       <NA>
@@ -269,17 +294,20 @@ if (!is.null(f))
 #>  2314306 6326319E     Cowood         8   family           0 very stony
 #>  2314308 6326319G Mariaspass        25   family           1      stony
 #>  2314310 6326319G   Jefflake        15   family           1       <NA>
-#>  drainagecl hydricrating elev_l
-#>        well           no   1625
-#>      poorly           no   1625
-#>      poorly          yes   1625
-#>        well           no   1625
-#>        well           no   1775
-#>      poorly           no   1775
+#>  drainagecl hydricrating hydgrp
+#>        well           no      d
+#>      poorly           no    c/d
+#>      poorly          yes    c/d
+#>        well           no      d
+#>        well           no      d
+#>      poorly           no    c/d
 #> [... more sites ...]
 #> 
 #> Spatial Data:
 #> [EMPTY]
+```
+
+``` r
 
 if (!is.null(f2))
   show(f2)
@@ -304,7 +332,7 @@ if (!is.null(f2))
 #>            NA           NA
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 546 rows  |  10 / 87 columns) -----
+#> ----- Sites (6 / 546 rows  |  10 / 92 columns) -----
 #>    coiid             dmudesc   compname comppct_r           compkind
 #>  1889394 NOTCOM National DMU     NOTCOM       100               <NA>
 #>   199488                638W      Water       100 miscellaneous area
@@ -312,13 +340,13 @@ if (!is.null(f2))
 #>  2314304            6326319E   Jefflake        25             family
 #>  2314305            6326319E   Potlatch        10             family
 #>  2314306            6326319E     Cowood         8             family
-#>  majcompflag localphase drainagecl hydricrating elev_l
-#>            1       <NA>       <NA>         <NA>     NA
-#>            1       <NA>       <NA>     unranked     NA
-#>            1      stony       well           no   1625
-#>            1       <NA>     poorly           no   1625
-#>            0       <NA>     poorly          yes   1625
-#>            0 very stony       well           no   1625
+#>  majcompflag localphase drainagecl hydricrating hydgrp
+#>            1       <NA>       <NA>         <NA>   <NA>
+#>            1       <NA>       <NA>     unranked   <NA>
+#>            1      stony       well           no      d
+#>            1       <NA>     poorly           no    c/d
+#>            0       <NA>     poorly          yes    c/d
+#>            0 very stony       well           no      d
 #> [... more sites ...]
 #> 
 #> Spatial Data:
