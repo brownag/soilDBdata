@@ -1,4 +1,8 @@
-# soilDBdata 0.1.3
+# soilDBdata 0.1.4 (2024-06-17)
+
+- Bump MT663 datasets with soilDB 2.8.3
+
+# soilDBdata 0.1.3 (2023-01-12)
 
 * NASIS table "purpose" lists updated
  - `get_site_data_from_NASIS_db()`: Added `siteothvegclass` id/name to soilDB (2022-12-12)
