@@ -1,3 +1,7 @@
+# soilDBdata 0.1.5 (2024-11-13)
+
+- Bump MT663 datasets with soilDB 2.8.6
+
 # soilDBdata 0.1.4 (2024-06-17)
 
 - Bump MT663 datasets with soilDB 2.8.3
