@@ -1,3 +1,7 @@
+# soilDBdata 0.1.6 (2025-01-10)
+- Add `create_fetchVegdata()` routine
+- Bump datasets for soilDB 2.8.7
+
 # soilDBdata 0.1.5 (2024-11-13)
 
 - Bump MT663 datasets with soilDB 2.8.6

@@ -3,5 +3,6 @@
 export(create_SQLite)
 export(create_fetchNASIS_components)
 export(create_fetchNASIS_pedons)
+export(create_fetchVegdata)
 importFrom(soilDB,createStaticNASIS)
 importFrom(soilDB,get_NASIS_table_name_by_purpose)

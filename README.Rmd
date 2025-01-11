@@ -11,6 +11,9 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
+options(soilDB.warn.aliases = FALSE)
+
 if (!dir.exists(file.path("inst", "extdata")))
   dir.create(file.path("inst", "extdata"), recursive = TRUE)
 ```
@@ -113,4 +116,30 @@ if (!is.null(f))
 
 if (!is.null(f2))
   show(f2)
+```
+
+## Example 3 `soilDB::fetchVegdata()`
+
+Create a "static" snapshot for `soilDB::fetchVegdata(')` from your local NASIS database.
+
+The sample data for testing the `fetchVegdata()` functionality are queried into the local database, accepted, and queried into selected set using NSSC_Pangaea query `VEG - Veg Plots by User Site ID and Vegplot ID` targeting Site and Vegetation Plot objects, and SSRO_Alaska `Pedon/Site/Vegetation Plot by Veg Plot ID` targeting Site and Pedon objects, setting parameter for User Site or Vegplot ID  matching`"2010WY629%"`. This gives a result with `137` Site, `11` Pedon, and `139` Vegetation Plot objects.
+
+```{r}
+
+if (inherits(con, 'DBIConnection')) 
+  res <- create_fetchVegdata(output_path = "inst/extdata/fetchVegdata.sqlite")
+DBI::dbDisconnect(con)
+
+if (!is.null(res)) {
+  f <- try(soilDB::fetchVegdata(dsn = attr(res, 'output_path'),                           SS = TRUE))
+  
+  f2 <-  try(soilDB::fetchVegdata(dsn = attr(res, 'output_path'), SS = FALSE))
+}
+
+
+if (!is.null(f))
+  show(str(f))
+
+if (!is.null(f2))
+  show(str(f2))
 ```
