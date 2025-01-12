@@ -12,10 +12,13 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 
-options(soilDB.warn.aliases = FALSE)
-
 if (!dir.exists(file.path("inst", "extdata")))
   dir.create(file.path("inst", "extdata"), recursive = TRUE)
+```
+
+```{r, echo = FALSE}
+library(soilDB)
+options(soilDB.warn.aliases = FALSE)
 ```
 
 # {soilDBdata}
@@ -23,18 +26,12 @@ if (!dir.exists(file.path("inst", "extdata")))
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of {soilDBdata} is to provide a standard way of building test data sets for the soilDB R package. 
+The goal of {soilDBdata} is to provide a standard way of building test data sets for the soilDB R package. Most of these test datasets are in the form of SQLite 'snapshots' of NASIS tables.
 
-Test data sets for the {soilDB} package fall into several categories: 
+These data sets are regularly updated to support unit testing of [NASIS functionality in the {soilDB} package](https://github.com/ncss-tech/soilDB/blob/master/tests/testthat/test-soilDBdata.R). A few data sets housed in this repository are also used for training courses provided by the Soil and Plant Science Division such as [Statistics for Soil Survey](https://ncss-tech.github.io/stats_for_soil_survey/book/index.html).
 
-#### 1. NASIS SQLite 'snapshots'
-
-Access to the NASIS transactional database requires eAuth and a NASIS user account. NASIS data are intended for internal use by NRCS staff and authorized cooperators.  NASIS-related functions in {soilDB} provide a standard read-only connection to a local NASIS instance for users that have such access, or alternately can be supplied with the optional `dsn` argument. The `dsn` argument can be a _DBIConnection_ to an MSSQL, SQLite or PostgreSQL database with the NASIS schema (for instance), or a path to a SQLite database file. 
+Access to the NASIS transactional database requires eAuth and a NASIS user account. NASIS data are intended for internal use by NRCS staff and authorized cooperators. NASIS-related functions in {soilDB} provide a standard read-only connection to a local NASIS instance for users that have such access, or alternately can be supplied with the optional `dsn` argument. The `dsn` argument can be a _DBIConnection_ to an MSSQL, SQLite or PostgreSQL database with the NASIS schema (for instance), or a path to a SQLite database file. 
  
-A few pedon datasets are used for the trainings provided by the Soil and Plant Science Division. These datasets are regularly updated as SQLite snapshots in this package to support unit testing of NASIS functionality in the {soilDB} package.
-
-#### ...
-
 ## Installation
 
 You can install the released version of {soilDBdata} from GitHub with:
@@ -47,7 +44,9 @@ remotes::install_github("brownag/soilDBdata")
 
 This is an example that shows you how to create a snapshot of the tables in your local database for running `fetchNASIS()` without a local NASIS database. 
 
-The sample data for testing the `from="pedons"` functionality are queried into the local database, accepted, and queried into and selected set using SSRO_Northwest query `PedonPC_Plus_DataDump_select` targeting Site and Pedon objects. User Site ID matches `"2015MT663%"`, NASIS site name matches `"%"` and NASIS group name matches `"NW-MIS Point Data"`. A total of `134` Site and Pedon objects should be found.
+The sample data for testing the `from="pedons"` functionality are queried into the local database, accepted, and queried into and selected set using SSRO_Northwest query `PedonPC_Plus_DataDump_select` targeting Site and Pedon objects. User Site ID matches `"2015MT663%"`, NASIS site name matches `"%"` and NASIS group name matches `"NW-MIS Point Data"`. 
+
+A total of `134` Site and Pedon objects should be found, and `115` of those profiles are retained in `fetchNASIS()` with `rmHzErrors = TRUE` because `19` profiles do not have horizons. These profiles represented with a single `NA` depth horizon when `fill = TRUE`.
 
 <!-- The following groups of tables are used by `fetchNASIS()` and related Site/Pedon-level queries in {soilDB}: -->
 <!-- ```{r echo=FALSE} -->
@@ -63,18 +62,30 @@ Create a "static" snapshot for `soilDB::fetchNASIS('pedons')` from your local NA
 library(soilDBdata)
 
 con <- soilDB::NASIS()
+rebuild <- FALSE
+dsn <- "inst/extdata/fetchNASIS_pedons.sqlite"
 
-if (inherits(con, 'DBIConnection')) 
-  res <- create_fetchNASIS_pedons(output_path = "inst/extdata/fetchNASIS_pedons.sqlite")
-DBI::dbDisconnect(con)
+if (rebuild && inherits(con, 'DBIConnection')) {
+  res <- create_fetchNASIS_pedons(output_path = dsn)
+  DBI::dbDisconnect(con)
+}
 
-if (!is.null(res)) {
-  f <- try(soilDB::fetchNASIS(dsn = attr(res, 'output_path'), 
-                              SS = TRUE,
-                              rmHzErrors = TRUE))
-  f2 <- try(soilDB::fetchNASIS(dsn = attr(res, 'output_path'),
-                               SS = FALSE, 
-                               fill = TRUE))
+if (file.exists(dsn)) {
+  
+  f <- try(soilDB::fetchNASIS(
+    from = "pedons",
+    dsn = dsn,
+    SS = TRUE,
+    rmHzErrors = TRUE
+  ))
+  
+  f2 <- try(soilDB::fetchNASIS(
+    from = "pedons",
+    dsn = dsn, 
+    SS = FALSE, 
+    fill = TRUE
+  ))
+  
 }
 
 if (!is.null(f))
@@ -88,27 +99,36 @@ if (!is.null(f2))
 
 Create a "static" snapshot for `soilDB::fetchNASIS('components')` from your local NASIS database.
 
-The sample data for testing the `from="components"` functionality are queried into the local database, accepted, and queried into selected set using SSRO_Southwest query `Whole multiple legends by area sym != addit. and DMU = yes +` targeting Area, Legend, Mapunit and Data Mapunit objects. Area Symbol matches `"MT663"`. A total of `1` Legend, `82` Mapunit and `86` Data Mapunit objects should be brought into local database. A total of `1` Area, `1` Legend, `63` Mapunit and `63` Data Mapunit objects should be brought into selected set.
+The sample data for testing the `from="components"` functionality are queried into the local database, accepted, and queried into selected set using SSRO_Southwest query `Whole multiple legends by area sym != addit. and DMU = yes +` targeting Area, Legend, Mapunit and Data Mapunit objects, where Area Symbol matches `"MT663"`. 
+
+A total of `1` Legend, `82` Mapunit and `86` Data Mapunit objects should be downloaded into local database, with `63` (non-additional) Mapunit and `63` Data Mapunit objects loaded into selected set. `fetchNASIS(from="components")` will return `191` component profiles with `fill=FALSE` and `546` with `fill=TRUE`.
 
 ```{r example2}
 library(soilDBdata)
 
 con <- soilDB::NASIS()
+rebuild <- FALSE
+dsn <- "inst/extdata/fetchNASIS_components.sqlite"
 
-if (inherits(con, 'DBIConnection')) 
-  res <- create_fetchNASIS_components(output_path = "inst/extdata/fetchNASIS_components.sqlite")
-DBI::dbDisconnect(con)
+if (rebuild & inherits(con, 'DBIConnection')) {
+  res <- create_fetchNASIS_components(output_path = dsn)
+  DBI::dbDisconnect(con)
+}
 
-if (!is.null(res)) {
-  f <- try(soilDB::fetchNASIS(from = "components",
-                              dsn = attr(res, 'output_path'),
-                              SS = TRUE,
-                              rmHzErrors = TRUE))
+if (file.exists(dsn)) {
+  f <- try(soilDB::fetchNASIS(
+    from = "components",
+    dsn = dsn,
+    SS = TRUE,
+    rmHzErrors = TRUE
+  ))
   
-  f2 <-  try(soilDB::fetchNASIS(from = "components",
-                                dsn = attr(res, 'output_path'),
-                                SS = FALSE, 
-                                fill = TRUE))
+  f2 <-  try(soilDB::fetchNASIS(
+    from = "components",
+    dsn = dsn,
+    SS = FALSE,
+    fill = TRUE
+  ))
 }
 
 if (!is.null(f))
@@ -120,26 +140,50 @@ if (!is.null(f2))
 
 ## Example 3 `soilDB::fetchVegdata()`
 
-Create a "static" snapshot for `soilDB::fetchVegdata(')` from your local NASIS database.
+Create a "static" snapshot for `soilDB::fetchVegdata()` from your local NASIS database.
 
-The sample data for testing the `fetchVegdata()` functionality are queried into the local database, accepted, and queried into selected set using NSSC_Pangaea query `VEG - Veg Plots by User Site ID and Vegplot ID` targeting Site and Vegetation Plot objects, and SSRO_Alaska `Pedon/Site/Vegetation Plot by Veg Plot ID` targeting Site and Pedon objects, setting parameter for User Site or Vegplot ID  matching`"2010WY629%"`. This gives a result with `137` Site, `11` Pedon, and `139` Vegetation Plot objects.
+The sample data for testing the `fetchVegdata()` functionality are queried using two queries to the national database. First run `POINT - Pedon/Site by User Site ID` with target table "Pedon" to download "Site", "Pedon", and "Transect" objects where User Site ID matches`"2010WY629%"`.. Then run `VEG - Veg Plots by User Site ID and Vegplot ID` with target table "Vegetation Plot" to get "Site" and "Vegetation Plot" objects where User Site ID and Vegetation Plot ID matches `"2010WY629%"`.
 
-```{r}
+The first query will result in `26` Site and `26` Pedon objects. Of the `26` pedons, `11` have vegetation plots linked to the same site observation. The second query will result in `137` Site, and `138` Vegetation Plot objects. One Site Observation has two Vegetation Plot objects linked to it. All `138` Vegetation Plots have `assocuserpedonid` populated, but most of the pedons do not exist in NASIS. 
+The two queries result in `152` unique sites matching `"2010WY629%"`, of which `127` lack Pedons and `15` lack Vegetation Plots.
 
-if (inherits(con, 'DBIConnection')) 
-  res <- create_fetchVegdata(output_path = "inst/extdata/fetchVegdata.sqlite")
-DBI::dbDisconnect(con)
+```{r example3}
+library(soilDBdata)
 
-if (!is.null(res)) {
-  f <- try(soilDB::fetchVegdata(dsn = attr(res, 'output_path'),                           SS = TRUE))
-  
-  f2 <-  try(soilDB::fetchVegdata(dsn = attr(res, 'output_path'), SS = FALSE))
+con <- soilDB::NASIS()
+rebuild <- FALSE
+dsn <- "inst/extdata/fetchVegdata.sqlite"
+
+if (rebuild && inherits(con, 'DBIConnection')) {
+  res <- create_fetchVegdata(output_path = dsn)
+  DBI::dbDisconnect(con)
 }
 
+if (file.exists(dsn)) {
+  f <- try(soilDB::fetchVegdata(
+    dsn = dsn, 
+    SS = TRUE
+  ))
+
+  f2 <- try(soilDB::fetchVegdata(
+    dsn = dsn, 
+    SS = FALSE,
+    include_pedon = "assocuserpedonid"
+  ))
+  
+  f3 <- try(soilDB::fetchVegdata(
+    dsn = dsn, 
+    SS = FALSE,
+    include_pedon = FALSE
+  ))
+}
 
 if (!is.null(f))
-  show(str(f))
+  str(f, max.level = 1)
 
 if (!is.null(f2))
-  show(str(f2))
+  str(f2, max.level = 1)
+
+if (!is.null(f3))
+  str(f3, max.level = 1)
 ```

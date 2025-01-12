@@ -29,7 +29,8 @@ create_fetchNASIS_components(
 
 create_fetchVegdata(
   output_path = tempfile(fileext = ".sqlite"),
-  tables = c("area", "site", "vegetation", "metadata", "lookup", "nasis"),
+  tables = c("area", "site", "pedon", "transect", "vegetation", "metadata", "lookup",
+    "nasis"),
   SS = NULL
 )
 }
