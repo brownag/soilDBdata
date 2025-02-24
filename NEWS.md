@@ -1,4 +1,8 @@
+# soilDBdata 0.1.7 (2025-02-24)
+- Add `transectgroundsurfcover` to `fetchVegdata()` snapshot
+ 
 # soilDBdata 0.1.6 (2025-01-10)
+
 - Add `create_fetchVegdata()` routine
 - Bump datasets for soilDB 2.8.7
 
