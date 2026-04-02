@@ -1,4 +1,9 @@
+# soilDBdata 0.1.8 (2026-04-01)
+
+- Add `siteindexcurve` to `fetchVegdata()` snapshot
+
 # soilDBdata 0.1.7 (2025-02-24)
+
 - Add `transectgroundsurfcover` to `fetchVegdata()` snapshot
  
 # soilDBdata 0.1.6 (2025-01-10)
