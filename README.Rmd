@@ -187,3 +187,13 @@ if (!is.null(f2))
 if (!is.null(f3))
   str(f3, max.level = 1)
 ```
+
+# Manually Updated Datasets
+
+The folder `inst/extdata/manual` contains assets that must be manually refreshed for each new fiscal year or schema change.
+
+Currently this folder contains:
+
+ - `gSSURGO_MH_FY26.zip` -- [ZIP file containing FY2026 gSSURGO ESRI File Geodatabase for the Marshall Islands](https://nrcs.app.box.com/v/soils/file/2053610265027)
+   - This is currently the smallest gSSURGO state dataset (~1.5 MB) so it is ideal for minimally testing the schema with real data, without incurring too much network overhead or further bloating {soilDBdata} package.
+   - See "gSSURGO By State" at <https://nrcs.app.box.com/v/soils/> to download other state-specific data sets

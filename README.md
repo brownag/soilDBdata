@@ -4,6 +4,7 @@
 # {soilDBdata}
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 The goal of {soilDBdata} is to provide a standard way of building test
@@ -53,11 +54,17 @@ because `19` profiles do not have horizons. These profiles represented
 with a single `NA` depth horizon when `fill = TRUE`.
 
 <!-- The following groups of tables are used by `fetchNASIS()` and related Site/Pedon-level queries in {soilDB}: -->
+
 <!-- ```{r echo=FALSE} -->
+
 <!-- # NASIS Table -->
+
 <!-- knitr::kable(data.frame(soilDB::get_NASIS_table_name_by_purpose( -->
+
 <!--   purpose = c("site", "pedon", "transect", "metadata", "lookup") -->
+
 <!-- )), col.names = "Table") -->
+
 <!-- ``` -->
 
 Create a “static” snapshot for `soilDB::fetchNASIS('pedons')` from your
@@ -93,6 +100,7 @@ if (file.exists(dsn)) {
   ))
   
 }
+#> Loading required namespace: aqp
 #> NOTE: all records are missing artifact volume
 #> NOTE: all records are missing artifact volume
 #> Warning: Horizon top depths contain NA! Check depth logic with
@@ -108,31 +116,31 @@ if (!is.null(f))
 #> profile ID: peiid  |  horizon ID: phiid 
 #> Depth range: 30 - 150 cm
 #> 
-#> ----- Horizons (6 / 561 rows  |  10 / 77 columns) -----
-#>    peiid   phiid hzdept hzdepb hzname texture      pedon_id dspcomplayerid
-#>  1092608 4718124      0      5     Oi     SPM 2015MT6630502           <NA>
-#>  1092608 4718125      5     13      E   GRV-L 2015MT6630502           <NA>
-#>  1092608 4718126     13     31     Bw   GRV-L 2015MT6630502           <NA>
-#>  1092608 4718127     31     64    2Bw  GRX-SL 2015MT6630502           <NA>
-#>  1092608 4718128     64    110     2C  CBX-SL 2015MT6630502           <NA>
-#>  1092609 4718129      0      2     Oi     SPM 2015MT6630503           <NA>
-#>  bounddistinct boundtopo
-#>           <NA>      <NA>
-#>          clear      wavy
-#>          clear      wavy
-#>          clear      wavy
-#>           <NA>      <NA>
-#>           <NA>      <NA>
+#> ----- Horizons (6 / 561 rows  |  10 / 73 columns) -----
+#>    peiid   phiid hzdept hzdepb hzname texture dspcomplayerid bounddistinct
+#>  1092608 4718124      0      5     Oi     SPM           <NA>          <NA>
+#>  1092608 4718125      5     13      E   GRV-L           <NA>         clear
+#>  1092608 4718126     13     31     Bw   GRV-L           <NA>         clear
+#>  1092608 4718127     31     64    2Bw  GRX-SL           <NA>         clear
+#>  1092608 4718128     64    110     2C  CBX-SL           <NA>          <NA>
+#>  1092609 4718129      0      2     Oi     SPM           <NA>          <NA>
+#>  boundtopo claytotest
+#>       <NA>         NA
+#>       wavy         16
+#>       wavy         17
+#>       wavy         15
+#>       <NA>         10
+#>       <NA>         NA
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 115 rows  |  10 / 147 columns) -----
-#>  siteiid   peiid ecositeid ecositenm ecositecorrdate es_classifier
-#>  1100702 1092608      <NA>      <NA>            <NA>          <NA>
-#>  1100703 1092609      <NA>      <NA>            <NA>          <NA>
-#>  1100704 1092610      <NA>      <NA>            <NA>          <NA>
-#>  1100705 1092611      <NA>      <NA>            <NA>          <NA>
-#>  1100706 1092612      <NA>      <NA>            <NA>          <NA>
-#>  1100707 1092613      <NA>      <NA>            <NA>          <NA>
+#> ----- Sites (6 / 115 rows  |  10 / 141 columns) -----
+#>  siteiid   peiid ecositeid ecositenm ecositecorrdate
+#>  1100702 1092608      <NA>      <NA>            <NA>
+#>  1100703 1092609      <NA>      <NA>            <NA>
+#>  1100704 1092610      <NA>      <NA>            <NA>
+#>  1100705 1092611      <NA>      <NA>            <NA>
+#>  1100706 1092612      <NA>      <NA>            <NA>
+#>  1100707 1092613      <NA>      <NA>            <NA>
 #>  siteecositehistory.classifier es_selection_method      upedonid siteobsiid
 #>                           <NA>                <NA> 2015MT6630502    1076863
 #>                           <NA>                <NA> 2015MT6630503    1076864
@@ -140,6 +148,13 @@ if (!is.null(f))
 #>                           <NA>                <NA> 2015MT6630506    1076866
 #>                           <NA>                <NA> 2015MT6630507    1076867
 #>                           <NA>                <NA> 2015MT6630508    1076868
+#>        usiteid
+#>  2015MT6630502
+#>  2015MT6630503
+#>  2015MT6630505
+#>  2015MT6630506
+#>  2015MT6630507
+#>  2015MT6630508
 #> [... more sites ...]
 #> 
 #> Spatial Data:
@@ -151,31 +166,31 @@ if (!is.null(f2))
 #> profile ID: peiid  |  horizon ID: hzID 
 #> Depth range: 30 - 150 cm
 #> 
-#> ----- Horizons (6 / 580 rows  |  10 / 77 columns) -----
-#>    peiid hzID hzdept hzdepb hzname texture   phiid      pedon_id dspcomplayerid
-#>  1092607    1     NA     NA   <NA>    <NA>    <NA> 2015MT6630501           <NA>
-#>  1092608    2      0      5     Oi     SPM 4718124 2015MT6630502           <NA>
-#>  1092608    3      5     13      E   GRV-L 4718125 2015MT6630502           <NA>
-#>  1092608    4     13     31     Bw   GRV-L 4718126 2015MT6630502           <NA>
-#>  1092608    5     31     64    2Bw  GRX-SL 4718127 2015MT6630502           <NA>
-#>  1092608    6     64    110     2C  CBX-SL 4718128 2015MT6630502           <NA>
-#>  bounddistinct
-#>           <NA>
-#>           <NA>
-#>          clear
-#>          clear
-#>          clear
-#>           <NA>
+#> ----- Horizons (6 / 580 rows  |  10 / 73 columns) -----
+#>    peiid hzID hzdept hzdepb hzname texture   phiid dspcomplayerid bounddistinct
+#>  1092607    1     NA     NA   <NA>    <NA>    <NA>           <NA>          <NA>
+#>  1092608    2      0      5     Oi     SPM 4718124           <NA>          <NA>
+#>  1092608    3      5     13      E   GRV-L 4718125           <NA>         clear
+#>  1092608    4     13     31     Bw   GRV-L 4718126           <NA>         clear
+#>  1092608    5     31     64    2Bw  GRX-SL 4718127           <NA>         clear
+#>  1092608    6     64    110     2C  CBX-SL 4718128           <NA>          <NA>
+#>  boundtopo
+#>       <NA>
+#>       <NA>
+#>       wavy
+#>       wavy
+#>       wavy
+#>       <NA>
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 134 rows  |  10 / 147 columns) -----
-#>  siteiid   peiid ecositeid ecositenm ecositecorrdate es_classifier
-#>  1100701 1092607      <NA>      <NA>            <NA>          <NA>
-#>  1100702 1092608      <NA>      <NA>            <NA>          <NA>
-#>  1100703 1092609      <NA>      <NA>            <NA>          <NA>
-#>  1100704 1092610      <NA>      <NA>            <NA>          <NA>
-#>  1100705 1092611      <NA>      <NA>            <NA>          <NA>
-#>  1100706 1092612      <NA>      <NA>            <NA>          <NA>
+#> ----- Sites (6 / 134 rows  |  10 / 141 columns) -----
+#>  siteiid   peiid ecositeid ecositenm ecositecorrdate
+#>  1100701 1092607      <NA>      <NA>            <NA>
+#>  1100702 1092608      <NA>      <NA>            <NA>
+#>  1100703 1092609      <NA>      <NA>            <NA>
+#>  1100704 1092610      <NA>      <NA>            <NA>
+#>  1100705 1092611      <NA>      <NA>            <NA>
+#>  1100706 1092612      <NA>      <NA>            <NA>
 #>  siteecositehistory.classifier es_selection_method      upedonid siteobsiid
 #>                           <NA>                <NA> 2015MT6630501    1076862
 #>                           <NA>                <NA> 2015MT6630502    1076863
@@ -183,6 +198,13 @@ if (!is.null(f2))
 #>                           <NA>                <NA> 2015MT6630505    1076865
 #>                           <NA>                <NA> 2015MT6630506    1076866
 #>                           <NA>                <NA> 2015MT6630507    1076867
+#>        usiteid
+#>  2015MT6630501
+#>  2015MT6630502
+#>  2015MT6630503
+#>  2015MT6630505
+#>  2015MT6630506
+#>  2015MT6630507
 #> [... more sites ...]
 #> 
 #> Spatial Data:
@@ -273,7 +295,7 @@ if (!is.null(f))
 #>             0          NA
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 191 rows  |  10 / 92 columns) -----
+#> ----- Sites (6 / 191 rows  |  10 / 88 columns) -----
 #>    coiid  dmudesc   compname comppct_r compkind majcompflag localphase
 #>  2314302 6326319E Mariaspass        20   family           1      stony
 #>  2314304 6326319E   Jefflake        25   family           1       <NA>
@@ -316,7 +338,7 @@ if (!is.null(f2))
 #>            NA           NA
 #> [... more horizons ...]
 #> 
-#> ----- Sites (6 / 546 rows  |  10 / 92 columns) -----
+#> ----- Sites (6 / 546 rows  |  10 / 88 columns) -----
 #>    coiid             dmudesc   compname comppct_r           compkind
 #>  1889394 NOTCOM National DMU     NOTCOM       100               <NA>
 #>   199488                638W      Water       100 miscellaneous area
@@ -393,52 +415,72 @@ if (file.exists(dsn)) {
 
 if (!is.null(f))
   str(f, max.level = 1)
-#> List of 13
-#>  $ vegplot         :'data.frame':    138 obs. of  153 variables:
-#>  $ vegplotlocation :'data.frame':    138 obs. of  34 variables:
-#>  $ vegplotrhi      :'data.frame':    138 obs. of  32 variables:
+#> List of 14
+#>  $ vegplot         :'data.frame':    138 obs. of  155 variables:
+#>  $ vegplotlocation :'data.frame':    138 obs. of  32 variables:
+#>  $ vegplotrhi      :'data.frame':    138 obs. of  28 variables:
 #>  $ vegplotspecies  :'data.frame':    2087 obs. of  44 variables:
-#>  $ vegtransect     :'data.frame':    138 obs. of  82 variables:
-#>  $ vegtransplantsum:'data.frame':    201 obs. of  86 variables:
-#>  $ vegtranspoint   :'data.frame':    763 obs. of  15 variables:
+#>  $ vegtransect     :'data.frame':    5 obs. of  77 variables:
+#>  $ vegtransplantsum:'data.frame':    68 obs. of  85 variables:
+#>  $ vegtranspoint   :'data.frame':    786 obs. of  15 variables:
+#>  $ veggroundsurface:'data.frame':    5 obs. of  13 variables:
 #>  $ vegprodquadrat  :'data.frame':    184 obs. of  19 variables:
-#>  $ vegsiteindexsum :'data.frame':    138 obs. of  16 variables:
-#>  $ vegsiteindexdet :'data.frame':    138 obs. of  20 variables:
-#>  $ vegbasalarea    :'data.frame':    0 obs. of  18 variables:
-#>  $ vegplottext     :'data.frame':    117 obs. of  9 variables:
-#>  $ site            :'data.frame':    152 obs. of  101 variables:
+#>  $ vegsiteindexsum :'data.frame':    138 obs. of  17 variables:
+#>  $ vegsiteindexdet :'data.frame':    5 obs. of  20 variables:
+#>  $ vegbasalarea    :'data.frame':    138 obs. of  18 variables:
+#>  $ vegplottext     :'data.frame':    117 obs. of  11 variables:
+#>  $ site            :'data.frame':    152 obs. of  95 variables:
 
 if (!is.null(f2))
   str(f2, max.level = 1)
-#> List of 13
-#>  $ vegplot         :'data.frame':    138 obs. of  153 variables:
-#>  $ vegplotlocation :'data.frame':    138 obs. of  34 variables:
-#>  $ vegplotrhi      :'data.frame':    138 obs. of  32 variables:
+#> List of 14
+#>  $ vegplot         :'data.frame':    138 obs. of  155 variables:
+#>  $ vegplotlocation :'data.frame':    138 obs. of  32 variables:
+#>  $ vegplotrhi      :'data.frame':    138 obs. of  28 variables:
 #>  $ vegplotspecies  :'data.frame':    2087 obs. of  44 variables:
-#>  $ vegtransect     :'data.frame':    138 obs. of  82 variables:
-#>  $ vegtransplantsum:'data.frame':    201 obs. of  86 variables:
-#>  $ vegtranspoint   :'data.frame':    763 obs. of  15 variables:
+#>  $ vegtransect     :'data.frame':    5 obs. of  77 variables:
+#>  $ vegtransplantsum:'data.frame':    68 obs. of  85 variables:
+#>  $ vegtranspoint   :'data.frame':    786 obs. of  15 variables:
+#>  $ veggroundsurface:'data.frame':    5 obs. of  13 variables:
 #>  $ vegprodquadrat  :'data.frame':    184 obs. of  19 variables:
-#>  $ vegsiteindexsum :'data.frame':    138 obs. of  16 variables:
-#>  $ vegsiteindexdet :'data.frame':    138 obs. of  20 variables:
-#>  $ vegbasalarea    :'data.frame':    0 obs. of  18 variables:
-#>  $ vegplottext     :'data.frame':    117 obs. of  9 variables:
-#>  $ site            :'data.frame':    152 obs. of  101 variables:
+#>  $ vegsiteindexsum :'data.frame':    138 obs. of  17 variables:
+#>  $ vegsiteindexdet :'data.frame':    5 obs. of  20 variables:
+#>  $ vegbasalarea    :'data.frame':    138 obs. of  18 variables:
+#>  $ vegplottext     :'data.frame':    117 obs. of  11 variables:
+#>  $ site            :'data.frame':    152 obs. of  95 variables:
 
 if (!is.null(f3))
   str(f3, max.level = 1)
-#> List of 13
-#>  $ vegplot         :'data.frame':    138 obs. of  152 variables:
-#>  $ vegplotlocation :'data.frame':    138 obs. of  34 variables:
-#>  $ vegplotrhi      :'data.frame':    138 obs. of  32 variables:
+#> List of 14
+#>  $ vegplot         :'data.frame':    138 obs. of  154 variables:
+#>  $ vegplotlocation :'data.frame':    138 obs. of  32 variables:
+#>  $ vegplotrhi      :'data.frame':    138 obs. of  28 variables:
 #>  $ vegplotspecies  :'data.frame':    2087 obs. of  44 variables:
-#>  $ vegtransect     :'data.frame':    138 obs. of  82 variables:
-#>  $ vegtransplantsum:'data.frame':    201 obs. of  86 variables:
-#>  $ vegtranspoint   :'data.frame':    763 obs. of  15 variables:
+#>  $ vegtransect     :'data.frame':    5 obs. of  77 variables:
+#>  $ vegtransplantsum:'data.frame':    68 obs. of  85 variables:
+#>  $ vegtranspoint   :'data.frame':    786 obs. of  15 variables:
+#>  $ veggroundsurface:'data.frame':    5 obs. of  13 variables:
 #>  $ vegprodquadrat  :'data.frame':    184 obs. of  19 variables:
-#>  $ vegsiteindexsum :'data.frame':    138 obs. of  16 variables:
-#>  $ vegsiteindexdet :'data.frame':    138 obs. of  20 variables:
-#>  $ vegbasalarea    :'data.frame':    0 obs. of  18 variables:
-#>  $ vegplottext     :'data.frame':    117 obs. of  9 variables:
-#>  $ site            :'data.frame':    152 obs. of  86 variables:
+#>  $ vegsiteindexsum :'data.frame':    138 obs. of  17 variables:
+#>  $ vegsiteindexdet :'data.frame':    5 obs. of  20 variables:
+#>  $ vegbasalarea    :'data.frame':    138 obs. of  18 variables:
+#>  $ vegplottext     :'data.frame':    117 obs. of  11 variables:
+#>  $ site            :'data.frame':    152 obs. of  82 variables:
 ```
+
+# Manually Updated Datasets
+
+The folder `inst/extdata/manual` contains assets that must be manually
+refreshed for each new fiscal year or schema change.
+
+Currently this folder contains:
+
+- `gSSURGO_MH_FY26.zip` – [ZIP file containing FY2026 gSSURGO ESRI File
+  Geodatabase for the Marshall
+  Islands](https://nrcs.app.box.com/v/soils/file/2053610265027)
+  - This is currently the smallest gSSURGO state dataset (~1.5 MB) so it
+    is ideal for minimally testing the schema with real data, without
+    incurring too much network overhead or further bloating {soilDBdata}
+    package.
+  - See “gSSURGO By State” at <https://nrcs.app.box.com/v/soils/> to
+    download other state-specific data sets
